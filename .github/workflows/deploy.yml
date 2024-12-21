@@ -33,7 +33,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
-          script: cd ./posts_app && echo "DEPLOY_IMAGE=${{ github.ref_name }}" > .env && ./deploy.sh
+          script: cd /root/posts-app && ./deploy.sh ${{ github.ref_name }}
 
   # send-failure-notification:
   #   runs-on: ubuntu-latest
