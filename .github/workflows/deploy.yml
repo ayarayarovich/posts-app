@@ -22,18 +22,18 @@ jobs:
           push: true
           tags: theayarayarovich/posts-app:latest,theayarayarovich/posts-app:${{ github.ref_name }}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - docker
-  #   steps:
-  #     - name: executing remote ssh commands using password
-  #       uses: appleboy/ssh-action@v1.0.0
-  #       with:
-  #         host: ${{ secrets.DEPLOY_HOST }}
-  #         username: ${{ secrets.DEPLOY_USERNAME }}
-  #         key: ${{ secrets.DEPLOY_KEY }}
-  #         script: echo "DEPLOY_IMAGE=${{ github.ref_name }}" > .env && ./deploy.sh
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - docker
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: cd ./posts_app && echo "DEPLOY_IMAGE=${{ github.ref_name }}" > .env && ./deploy.sh
 
   # send-failure-notification:
   #   runs-on: ubuntu-latest
